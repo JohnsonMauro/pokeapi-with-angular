@@ -13,7 +13,21 @@ export class PokeApiService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public getPokemons() {
+  public getPokemonList() {
     return this.httpClient.get<any>(this.baseURLPokemon).pipe(take(1));
+  }
+
+  public getPokemonByName(name: string) {
+    return this.httpClient
+      .get<any>(`${this.baseURLPokemon}/${name}`)
+      .pipe(take(1));
+  }
+
+  public getPokemonDetails(url: string) {
+    return this.httpClient.get<any>(url).pipe(take(1));
+  }
+
+  public getNextPokemonList(url: string) {
+    return this.httpClient.get<any>(url).pipe(take(1));
   }
 }

@@ -11,16 +11,46 @@ import { PokeApiService } from '@services/poke-api.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  public pokemonList: any;
+  private nextPokemons = '';
+
   constructor(
     private modalService: NgbModal,
     private pokeApiService: PokeApiService
   ) {}
 
   ngOnInit() {
-    this.pokeApiService.getPokemons().subscribe((data) => console.log(data));
+    this.pokeApiService.getPokemonList().subscribe((data) => {
+      this.nextPokemons = data.next;
+      this.pokemonList = data.results;
+    });
   }
 
-  open() {
-    this.modalService.open(ModalsComponent);
+  public getPokemonByName(name: string) {
+    if (name) {
+      this.pokeApiService
+        .getPokemonByName(name)
+        .subscribe((data) => this.openModalPokemon(data));
+    }
+  }
+
+  public getNextPokemonList() {
+    this.pokeApiService
+      .getPokemonDetails(this.nextPokemons)
+      .subscribe((data) => {
+        this.nextPokemons = data.next;
+        this.pokemonList.push(...data.results);
+      });
+  }
+
+  public openPokemonDetails(url: string) {
+    this.pokeApiService
+      .getPokemonDetails(url)
+      .subscribe((data) => this.openModalPokemon(data));
+  }
+
+  private openModalPokemon(details: any) {
+    const modalRef = this.modalService.open(ModalsComponent);
+    modalRef.componentInstance.pokemonDetails = details;
   }
 }

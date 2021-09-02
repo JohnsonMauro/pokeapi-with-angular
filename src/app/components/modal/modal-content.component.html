@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Hi there!</h4>
+  <h4 class="modal-title">{{ pokemonDetails.name }}</h4>
   <button
     type="button"
     class="close"
@@ -10,7 +10,33 @@
   </button>
 </div>
 <div class="modal-body">
-  <p>Hello!</p>
+  <div class="row">
+    <div class="col-6">
+      <img
+        src="{{ pokemonDetails.sprites.other.dream_world.front_default }}"
+        alt="{{ pokemonDetails.name + ' image from dream world.' }}"
+        width="200"
+      />
+    </div>
+    <div class="col-6">
+      <div class="row mb-2">
+        <div class="col-12">
+          <strong>Type</strong>
+        </div>
+        <div class="col-12" *ngFor="let type of pokemonDetails.types">
+          {{ type.type.name }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <strong>Abilities</strong>
+        </div>
+        <div class="col-12" *ngFor="let ability of pokemonDetails.abilities">
+          {{ ability.ability.name }}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="modal-footer">
   <button
