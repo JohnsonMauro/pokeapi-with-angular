@@ -1,24 +1,17 @@
 $screen-xs-min: 576px;
-
 @mixin xs {
   @media (max-width: #{$screen-xs-min}) {
     @content;
   }
 }
 
-.search-sticky {
+.header-sticky {
   background: white;
   position: sticky;
-  top: 222px;
+  top: 0;
   z-index: 1;
 
   @include xs {
-    top: 224px;
-  }
-}
-
-.text-xs-center {
-  @include xs {
-    text-align: center !important;
+    padding-bottom: 50px;
   }
 }

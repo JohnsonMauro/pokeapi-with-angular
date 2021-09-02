@@ -12,6 +12,7 @@ import { PokeApiService } from '@services/poke-api.service';
 })
 export class HomeComponent implements OnInit {
   public pokemonList: any;
+  public totalPokemons = 0;
   private nextPokemons = '';
 
   constructor(
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.pokeApiService.getPokemonList().subscribe((data) => {
       this.nextPokemons = data.next;
+      this.totalPokemons = data.count;
       this.pokemonList = data.results;
     });
   }
