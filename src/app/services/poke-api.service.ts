@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { map, mergeMap, take } from 'rxjs';
-
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,20 +12,18 @@ export class PokeApiService {
   constructor(private httpClient: HttpClient) {}
 
   public getPokemonList() {
-    return this.httpClient.get<any>(this.baseURLPokemon).pipe(take(1));
+    return this.httpClient.get<any>(this.baseURLPokemon);
   }
 
   public getPokemonByName(name: string) {
-    return this.httpClient
-      .get<any>(`${this.baseURLPokemon}/${name}`)
-      .pipe(take(1));
+    return this.httpClient.get<any>(`${this.baseURLPokemon}/${name}`);
   }
 
   public getPokemonDetails(url: string) {
-    return this.httpClient.get<any>(url).pipe(take(1));
+    return this.httpClient.get<any>(url);
   }
 
   public getNextPokemonList(url: string) {
-    return this.httpClient.get<any>(url).pipe(take(1));
+    return this.httpClient.get<any>(url);
   }
 }
